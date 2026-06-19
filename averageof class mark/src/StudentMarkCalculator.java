@@ -5,15 +5,14 @@ import java.util.Scanner;
  * calculates the total and average marks, and prints a feedback message
  * based on whether the average mark is above a threshold.
  *
- * This program demonstrates standard Java variables, simple input validations
- * without using loops, and resource management. It utilizes four distinct 
- * data types: String, int, double, and float.
+ * This program demonstrates standard Java variables and calculations.
+ * It utilizes four distinct data types: String, int, double, and float.
  */
 public class StudentMarkCalculator {
 
     /**
      * Entry point of the StudentMarkCalculator application.
-     * Prompts the user for student name and marks for 3 subjects, performs checks,
+     * Prompts the user for student name and marks for 3 subjects,
      * calculates average grade, and determines if it exceeds threshold.
      *
      * @param args Command-line arguments (not used in this application).
@@ -38,72 +37,19 @@ public class StudentMarkCalculator {
 
         // Prompt the user to enter student name
         System.out.print("Enter student name: ");
-        // Read and trim whitespace from student name
-        studentName = sc.nextLine().trim();
-        
-        // Validation Step 1: Check if student name string is empty
-        if (studentName.isEmpty()) {
-            System.out.println("Error: Student name cannot be empty.");
-            sc.close();
-            return; // Terminate execution early due to validation failure
-        }
+        studentName = sc.nextLine();
 
         // Prompt the user to enter mark 1
         System.out.print("Enter mark 1 (0-100): ");
-        
-        // Validation Step 2: Check if mark 1 is a valid integer
-        if (sc.hasNextInt()) {
-            mark1 = sc.nextInt();
-            
-            // Check if mark lies within academic bounds (0 to 100)
-            if (mark1 < 0 || mark1 > 100) {
-                System.out.println("Error: Marks must be between 0 and 100.");
-                sc.close();
-                return; // Terminate early
-            }
-        } else {
-            System.out.println("Error: Mark must be a valid integer.");
-            sc.close();
-            return; // Terminate early
-        }
+        mark1 = sc.nextInt();
 
         // Prompt the user to enter mark 2
         System.out.print("Enter mark 2 (0-100): ");
-        
-        // Validation Step 3: Check if mark 2 is a valid integer
-        if (sc.hasNextInt()) {
-            mark2 = sc.nextInt();
-            
-            // Check if mark lies within academic bounds (0 to 100)
-            if (mark2 < 0 || mark2 > 100) {
-                System.out.println("Error: Marks must be between 0 and 100.");
-                sc.close();
-                return; // Terminate early
-            }
-        } else {
-            System.out.println("Error: Mark must be a valid integer.");
-            sc.close();
-            return; // Terminate early
-        }
+        mark2 = sc.nextInt();
 
         // Prompt the user to enter mark 3
         System.out.print("Enter mark 3 (0-100): ");
-        
-        // Validation Step 4: Check if mark 3 is a valid integer
-        if (sc.hasNextInt()) {
-            mark3 = sc.nextInt();
-            
-            // Check if mark lies within academic bounds (0 to 100)
-            if (mark3 < 0 || mark3 > 100) {
-                System.out.println("Error: Marks must be between 0 and 100.");
-                sc.close();
-                return; // Terminate early
-            }
-        } else {
-            System.out.println("Error: Mark must be a valid integer.");
-            sc.close();
-            return; // Terminate early
-        }
+        mark3 = sc.nextInt();
 
         // Calculate sum total of all subject marks
         int total = mark1 + mark2 + mark3;
@@ -116,7 +62,7 @@ public class StudentMarkCalculator {
         System.out.println("Total Marks = " + total);
         System.out.println("Average Marks = " + average);
 
-        // Validation Step 5: Check if the average exceeds passing threshold float
+        // Check if the average exceeds passing threshold float
         if (average > threshold) {
             System.out.println("Status: The student scored above the " + threshold + "% average threshold.");
         } else {

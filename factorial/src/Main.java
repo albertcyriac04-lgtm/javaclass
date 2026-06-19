@@ -4,9 +4,8 @@ import java.util.Scanner;
  * Main demonstrates how to calculate the factorial of a number recursively
  * in Java without using any loops.
  *
- * This program demonstrates standard Java variables, simple input validations
- * without using loops, and resource management. It utilizes four distinct 
- * data types: String, int, double, and float.
+ * This program demonstrates standard Java variables and recursive calculation.
+ * It utilizes four distinct data types: String, int, double, and float.
  */
 public class Main {
 
@@ -29,7 +28,7 @@ public class Main {
     /**
      * Entry point of the factorial application.
      * Prompts the user for a calculation label name and an integer value (1-20),
-     * performs step-by-step validations, calculates the factorial recursively, and prints outcomes.
+     * calculates the factorial recursively, and prints outcomes.
      *
      * @param args Command-line arguments (not used in this application).
      */
@@ -53,34 +52,11 @@ public class Main {
 
         // Prompt the user to enter a calculation label
         System.out.print("Enter label for this calculation: ");
-        // Read and trim whitespace from calculation label
-        calculationLabel = input.nextLine().trim();
-        
-        // Validation Step 1: Check if calculation label string is empty
-        if (calculationLabel.isEmpty()) {
-            System.out.println("Error: Calculation label cannot be empty.");
-            input.close();
-            return; // Terminate execution early due to validation failure
-        }
+        calculationLabel = input.nextLine();
 
         // Prompt the user to enter an integer value
         System.out.print("Enter an integer to compute factorial (1 to 20): ");
-        
-        // Validation Step 2: Check if input value is a valid integer
-        if (input.hasNextInt()) {
-            inputNumber = input.nextInt();
-            
-            // Validate that input value falls within bounds (1 to 20) to prevent overflow
-            if (inputNumber < 1 || inputNumber > 20) {
-                System.out.println("Error: Input must be between 1 and 20.");
-                input.close();
-                return; // Terminate execution early due to validation failure
-            }
-        } else {
-            System.out.println("Error: Input must be a valid integer.");
-            input.close();
-            return; // Terminate execution early due to validation failure
-        }
+        inputNumber = input.nextInt();
 
         // Compute the factorial recursively and assign it to the double result variable
         factorialResult = calculateFactorial(inputNumber);

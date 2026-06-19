@@ -65,16 +65,15 @@ class Box {
 /**
  * Main application class to demonstrate creating and manipulating Box objects.
  *
- * This program demonstrates standard Java variables, simple input validations
- * without using loops, and resource management. It utilizes four distinct 
- * data types: String, int, double, and float.
+ * This program demonstrates standard Java variables and simple terminal inputs.
+ * It utilizes four distinct data types: String, int, double, and float.
  */
 public class BoxDemo {
 
     /**
      * Entry point of the BoxDemo application.
-     * Prompts the user for box details (label, count, and dimensions), performs
-     * step-by-step validations, and displays calculations.
+     * Prompts the user for box details (label, count, and dimensions),
+     * and displays calculations.
      *
      * @param args Command-line arguments (not used in this application).
      */
@@ -98,91 +97,23 @@ public class BoxDemo {
 
         // Prompt the user to enter box label
         System.out.print("Enter Box Label: ");
-        // Read and trim whitespace from box label input
-        label = input.nextLine().trim();
-        
-        // Validation Step 1: Check if box label string is empty
-        if (label.isEmpty()) {
-            System.out.println("Error: Box label cannot be empty.");
-            input.close();
-            return; // Terminate execution early due to validation failure
-        }
+        label = input.nextLine();
 
         // Prompt the user to enter box quantity count
         System.out.print("Enter number of boxes: ");
-        
-        // Validation Step 2: Check if box count input is a valid integer
-        if (input.hasNextInt()) {
-            count = input.nextInt();
-            
-            // Check if count is a positive non-zero integer
-            if (count <= 0) {
-                System.out.println("Error: Box count must be positive.");
-                input.close();
-                return; // Terminate execution early due to validation failure
-            }
-        } else {
-            System.out.println("Error: Box count must be a valid integer.");
-            input.close();
-            return; // Terminate execution early due to validation failure
-        }
+        count = input.nextInt();
 
         // Prompt the user to enter box length
         System.out.print("Enter Box Length: ");
-        
-        // Validation Step 3: Check if length input is a valid double
-        if (input.hasNextDouble()) {
-            length = input.nextDouble();
-            
-            // Check if length is positive and greater than zero
-            if (length <= 0) {
-                System.out.println("Error: Length must be positive.");
-                input.close();
-                return; // Terminate execution early due to validation failure
-            }
-        } else {
-            System.out.println("Error: Length must be a valid number.");
-            input.close();
-            return; // Terminate execution early due to validation failure
-        }
+        length = input.nextDouble();
 
         // Prompt the user to enter box width
         System.out.print("Enter Box Width: ");
-        
-        // Validation Step 4: Check if width input is a valid double
-        if (input.hasNextDouble()) {
-            width = input.nextDouble();
-            
-            // Check if width is positive and greater than zero
-            if (width <= 0) {
-                System.out.println("Error: Width must be positive.");
-                input.close();
-                return; // Terminate execution early due to validation failure
-            }
-        } else {
-            System.out.println("Error: Width must be a valid number.");
-            input.close();
-            return; // Terminate execution early due to validation failure
-        }
+        width = input.nextDouble();
 
         // Prompt the user to enter box height
         System.out.print("Enter Box Height: ");
-        
-        // Validation Step 5: Check if height input is a valid double
-        if (input.hasNextDouble()) {
-            height = input.nextDouble();
-            
-            // Check if height is positive and greater than zero
-            if (height <= 0) {
-                System.out.println("Error: Height must be positive.");
-                input.close();
-                return; // Terminate execution early due to validation failure
-            }
-        } else {
-            System.out.println("Error: Height must be a valid number.");
-            input.close();
-            return; // Terminate execution early due to validation failure
-        }
+        height = input.nextDouble();
 
         // Instantiate Box class object using user input details
         Box box = new Box(label, length, width, height);
