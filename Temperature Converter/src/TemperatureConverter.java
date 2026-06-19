@@ -1,31 +1,29 @@
-/**
- * TemperatureConverter converts a user-entered temperature from Celsius
- * to Fahrenheit using standard mathematical formulas.
- */
 import java.util.Scanner;
 
 public class TemperatureConverter {
-
     public static void main(String[] args) {
-        // Instantiate Scanner for console input streams
         Scanner input = new Scanner(System.in);
 
-        // Declare variables for input and output values
-        double celsius;    // Temperature in Celsius degree
-        double fahrenheit; // Calculated temperature in Fahrenheit degree
+        // Required datatypes: String, int, double, float
+        String scale = "Celsius";
+        int lowerLimit = -273;
+        double celsius;
+        float fahrenheit;
 
-        // Interactive User Interface Inputs
         System.out.print("Enter temperature in Celsius: ");
-        celsius = input.nextDouble();
+        if (input.hasNextDouble()) {
+            celsius = input.nextDouble();
+            // Simple validation: check if temperature is above absolute zero
+            if (celsius >= lowerLimit) {
+                fahrenheit = (float) ((celsius * 9.0 / 5.0) + 32.0);
+                System.out.println("Fahrenheit (" + scale + " conversion) = " + fahrenheit);
+            } else {
+                System.out.println("Error: Temperature cannot be below " + lowerLimit + "°C.");
+            }
+        } else {
+            System.out.println("Error: Invalid input. Please enter a valid number.");
+        }
 
-        // Evaluates using double literals (9.0 / 5.0) to enforce precise floating-point math.
-        // Fahrenheit formula: (Celsius * 9/5) + 32
-        fahrenheit = (celsius * 9.0 / 5.0) + 32.0;
-
-        // Display the converted temperature
-        System.out.println("Fahrenheit = " + fahrenheit);
-
-        // Resource optimization: Close the Scanner to free up system resources
         input.close();
     }
 }

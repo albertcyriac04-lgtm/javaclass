@@ -1,32 +1,50 @@
-/**
- * ElectricityBill calculates the electricity bill amount based on
- * units consumed and a fixed rate per unit.
- */
 import java.util.Scanner;
 
 public class ElectricityBill {
 
     public static void main(String[] args) {
-        // Instantiate Scanner for console input streams
         Scanner input = new Scanner(System.in);
 
-        // Constant value representing the rate charged per unit (9.5 rupees/currency unit)
-        final double RATE_PER_UNIT = 9.5;
+        // Required datatypes: String, int, double, float
+        String consumerName;
+        int units;
+        double ratePerUnit = 9.5;
+        float billAmount;
 
-        int units;          // Number of electricity units consumed (integer)
-        double billAmount;  // Calculated total bill amount (floating-point)
+        // 1. String validation
+        System.out.print("Enter consumer name: ");
+        consumerName = input.nextLine().trim();
+        if (consumerName.isEmpty()) {
+            System.out.println("Error: Consumer name cannot be empty.");
+            input.close();
+            return;
+        }
 
-        // Read units consumed input
+        // 2. int validation
         System.out.print("Enter units consumed: ");
-        units = input.nextInt();
+        if (input.hasNextInt()) {
+            units = input.nextInt();
+            if (units < 0) {
+                System.out.println("Error: Units consumed cannot be negative.");
+                input.close();
+                return;
+            }
+        } else {
+            System.out.println("Error: Units consumed must be a valid integer.");
+            input.close();
+            return;
+        }
 
-        // Calculate bill amount by multiplying units with rate
-        billAmount = units * RATE_PER_UNIT;
+        // 3. double & float calculations
+        billAmount = (float) (units * ratePerUnit);
 
-        // Display the final bill amount
-        System.out.println("Electricity Bill = " + billAmount);
+        // Display results
+        System.out.println("\n--- Electricity Bill Receipt ---");
+        System.out.println("Consumer Name: " + consumerName);
+        System.out.println("Units Consumed: " + units);
+        System.out.println("Rate Per Unit: " + ratePerUnit);
+        System.out.println("Electricity Bill Amount = " + billAmount);
 
-        // Close the scanner resource to avoid memory leak
         input.close();
     }
 }

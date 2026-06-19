@@ -1,86 +1,118 @@
-/**
- * Represents a 3D Box with length, width, and height dimensions.
- * Demonstrates the concepts of data encapsulation (private fields),
- * constructor initialization, setter methods, and instance methods.
- */
+import java.util.Scanner;
+
 class Box {
-    // Private instance variables to enforce encapsulation
+    private String label;
     private double length;
     private double width;
     private double height;
 
-    /**
-     * Constructor to initialize a Box object with specified dimensions.
-     * 
-     * @param l Length of the box.
-     * @param w Width of the box.
-     * @param h Height of the box.
-     */
-    public Box(double l, double w, double h) {
-        length = l;
-        width = w;
-        height = h;
+    public Box(String label, double l, double w, double h) {
+        this.label = label;
+        this.length = l;
+        this.width = w;
+        this.height = h;
     }
 
-    /**
-     * Setter method to update the dimensions of the Box.
-     * 
-     * @param l New length of the box.
-     * @param w New width of the box.
-     * @param h New height of the box.
-     */
-    public void setDimensions(double l, double w, double h) {
-        length = l;
-        width = w;
-        height = h;
-    }
-
-    /**
-     * Computes the volume of the Box.
-     * Volume formula: length * width * height.
-     * 
-     * @return The volume as a double.
-     */
     public double calculateVolume() {
         return length * width * height;
     }
 
-    /**
-     * Displays the dimensions and the calculated volume of the Box on the console.
-     */
-    public void display() {
-        System.out.println("Length : " + length);
-        System.out.println("Width  : " + width);
-        System.out.println("Height : " + height);
-        System.out.println("Volume : " + calculateVolume());
+    public void display(int count, float density) {
+        double volume = calculateVolume();
+        float mass = (float) (volume * density);
+        System.out.println("Box Label: " + label);
+        System.out.println("Count: " + count);
+        System.out.println("Dimensions: " + length + " x " + width + " x " + height);
+        System.out.println("Volume: " + volume + " cubic units");
+        System.out.println("Density: " + density + " units/vol");
+        System.out.println("Calculated Mass: " + mass);
     }
 }
 
-/**
- * Main application class to demonstrate creating and manipulating Box objects.
- */
 public class BoxDemo {
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
 
-        // Instantiate two Box objects with different initial dimensions using the constructor
-        Box box1 = new Box(10, 5, 4);
-        Box box2 = new Box(6, 3, 2);
+        // Required datatypes: String, int, double, float
+        String label;
+        int count;
+        double length, width, height;
+        float density = 1.25f;
 
-        // Display the details of the first box
-        System.out.println("Box 1 Details");
-        box1.display();
+        // 1. String validation
+        System.out.print("Enter Box Label: ");
+        label = input.nextLine().trim();
+        if (label.isEmpty()) {
+            System.out.println("Error: Box label cannot be empty.");
+            input.close();
+            return;
+        }
 
-        System.out.println();
+        // 2. int validation
+        System.out.print("Enter number of boxes: ");
+        if (input.hasNextInt()) {
+            count = input.nextInt();
+            if (count <= 0) {
+                System.out.println("Error: Box count must be positive.");
+                input.close();
+                return;
+            }
+        } else {
+            System.out.println("Error: Box count must be a valid integer.");
+            input.close();
+            return;
+        }
 
-        // Display the details of the second box
-        System.out.println("Box 2 Details");
-        box2.display();
+        // 3. double validation (length)
+        System.out.print("Enter Box Length: ");
+        if (input.hasNextDouble()) {
+            length = input.nextDouble();
+            if (length <= 0) {
+                System.out.println("Error: Length must be positive.");
+                input.close();
+                return;
+            }
+        } else {
+            System.out.println("Error: Length must be a valid number.");
+            input.close();
+            return;
+        }
 
-        // Update the dimensions of the second box using the setter method
-        box2.setDimensions(8, 4, 3);
+        // double validation (width)
+        System.out.print("Enter Box Width: ");
+        if (input.hasNextDouble()) {
+            width = input.nextDouble();
+            if (width <= 0) {
+                System.out.println("Error: Width must be positive.");
+                input.close();
+                return;
+            }
+        } else {
+            System.out.println("Error: Width must be a valid number.");
+            input.close();
+            return;
+        }
 
-        // Display the details of the second box after updates
-        System.out.println("\nAfter Changing Box 2 Dimensions");
-        box2.display();
+        // double validation (height)
+        System.out.print("Enter Box Height: ");
+        if (input.hasNextDouble()) {
+            height = input.nextDouble();
+            if (height <= 0) {
+                System.out.println("Error: Height must be positive.");
+                input.close();
+                return;
+            }
+        } else {
+            System.out.println("Error: Height must be a valid number.");
+            input.close();
+            return;
+        }
+
+        // Create box and display info
+        Box box = new Box(label, length, width, height);
+        System.out.println("\n--- Box Details ---");
+        box.display(count, density);
+
+        input.close();
     }
 }

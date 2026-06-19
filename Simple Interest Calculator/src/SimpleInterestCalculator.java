@@ -1,48 +1,72 @@
-/**
- * SimpleInterestCalculator computes simple interest based on the principal amount,
- * time in years, and the annual rate of interest.
- * If the user inputs 0 or a negative rate, a default rate of 5.0% is applied.
- */
 import java.util.Scanner;
 
 public class SimpleInterestCalculator {
 
     public static void main(String[] args) {
-        // Instantiate Scanner for console input streams
         Scanner input = new Scanner(System.in);
 
-        // Unmodifiable constant setup for default fallback interest rate
-        final double DEFAULT_RATE = 5.0;
+        // Required datatypes: String, int, double, float
+        String currencySymbol = "USD";
+        int timeInYears;
+        double principal;
+        double rate;
+        float simpleInterest;
 
-        // Variable declarations to hold user inputs and calculated interest
-        double principal;      // Principal amount deposited or borrowed
-        double rate;           // Annual rate of interest as a percentage
-        double time;           // Time period in years
-        double simpleInterest; // Calculated simple interest amount
-
-        // Interactive User Interface Inputs
+        // 1. double validation (Principal)
         System.out.print("Enter Principal amount: ");
-        principal = input.nextDouble();
-
-        System.out.print("Enter Time (in years): ");
-        time = input.nextDouble();
-
-        System.out.print("Enter Rate of interest (Enter 0 or negative to use default rate): ");
-        rate = input.nextDouble();
-
-        // Control flow structure to handle fallback parameters
-        // Checks if rate is non-positive; if so, assigns the default rate
-        if (rate <= 0) {
-            rate = DEFAULT_RATE;
+        if (input.hasNextDouble()) {
+            principal = input.nextDouble();
+            if (principal <= 0) {
+                System.out.println("Error: Principal must be greater than zero.");
+                input.close();
+                return;
+            }
+        } else {
+            System.out.println("Error: Principal must be a valid number.");
+            input.close();
+            return;
         }
 
-        // Standard financial formula execution: SI = (P * R * T) / 100
-        simpleInterest = (principal * rate * time) / 100.0;
+        // 2. int validation (Time in years)
+        System.out.print("Enter Time (in years): ");
+        if (input.hasNextInt()) {
+            timeInYears = input.nextInt();
+            if (timeInYears <= 0) {
+                System.out.println("Error: Time must be at least 1 year.");
+                input.close();
+                return;
+            }
+        } else {
+            System.out.println("Error: Time must be a valid integer.");
+            input.close();
+            return;
+        }
+
+        // 3. double validation (Rate)
+        System.out.print("Enter Rate of interest (%): ");
+        if (input.hasNextDouble()) {
+            rate = input.nextDouble();
+            if (rate <= 0) {
+                System.out.println("Error: Rate must be greater than zero.");
+                input.close();
+                return;
+            }
+        } else {
+            System.out.println("Error: Rate must be a valid number.");
+            input.close();
+            return;
+        }
+
+        // 4. float computation
+        simpleInterest = (float) ((principal * rate * timeInYears) / 100.0);
 
         // Display results
-        System.out.println("Interest = " + simpleInterest);
+        System.out.println("\n--- Simple Interest Calculation ---");
+        System.out.println("Principal: " + principal + " " + currencySymbol);
+        System.out.println("Time: " + timeInYears + " years");
+        System.out.println("Rate: " + rate + "%");
+        System.out.println("Interest = " + simpleInterest + " " + currencySymbol);
 
-        // Resource optimization: Close the Scanner to prevent resource leaks
         input.close();
     }
 }

@@ -1,32 +1,63 @@
-/**
- * Factorialfn demonstrates how to calculate the factorial of a number
- * recursively in Java.
- */
-class Factorialfn {
+import java.util.Scanner;
+
+public class Main {
 
     /**
-     * Calculates the factorial of an integer n recursively.
-     * Factorial of n (n!) = n * (n-1) * (n-2) * ... * 1.
-     * 
-     * @param n The integer value to compute the factorial for.
-     * @return The factorial of n.
+     * Recursively computes the factorial of n.
+     * Note: This uses recursion instead of a loop to avoid using loops.
      */
-    static int Factorialfn(int n) {
-        // Base case / stopping condition: factorial of 1 is 1
-        if (n == 1) {
-            return 1;
+    static double calculateFactorial(int n) {
+        if (n <= 1) {
+            return 1.0;
+        }
+        return n * calculateFactorial(n - 1);
+    }
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        // Required datatypes: String, int, double, float
+        String calculationLabel;
+        int inputNumber;
+        double factorialResult;
+        float scaledValue;
+
+        // 1. String validation
+        System.out.print("Enter label for this calculation: ");
+        calculationLabel = input.nextLine().trim();
+        if (calculationLabel.isEmpty()) {
+            System.out.println("Error: Calculation label cannot be empty.");
+            input.close();
+            return;
         }
 
-        // Recursive case: n! = n * (n - 1)!
-        return n * Factorialfn(n - 1);
-    }
+        // 2. int validation
+        System.out.print("Enter an integer to compute factorial (1 to 20): ");
+        if (input.hasNextInt()) {
+            inputNumber = input.nextInt();
+            if (inputNumber < 1 || inputNumber > 20) {
+                System.out.println("Error: Input must be between 1 and 20.");
+                input.close();
+                return;
+            }
+        } else {
+            System.out.println("Error: Input must be a valid integer.");
+            input.close();
+            return;
+        }
 
-    /**
-     * Entry point of the factorial application.
-     */
-    public static void main(String args[]) {
-        // Compute and print the factorial of 10
-        System.out.println(Factorialfn(10));
+        // 3. double calculation (recursive)
+        factorialResult = calculateFactorial(inputNumber);
+
+        // 4. float assignment (scale down the factorial value)
+        scaledValue = (float) (factorialResult / 1000.0);
+
+        // Display results
+        System.out.println("\n--- Factorial Result ---");
+        System.out.println("Label: " + calculationLabel);
+        System.out.println("Factorial of " + inputNumber + " = " + factorialResult);
+        System.out.println("Result scaled down by 1000 = " + scaledValue + "f");
+
+        input.close();
     }
 }
-

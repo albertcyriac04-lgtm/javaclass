@@ -1,48 +1,89 @@
-/**
- * GroceryBill calculates the total cost of three grocery items,
- * applies a flat 10% discount, and computes the final payable amount.
- */
 import java.util.Scanner;
 
 public class GroceryBill {
 
     public static void main(String[] args) {
-        // Instantiate Scanner for console input streams
         Scanner input = new Scanner(System.in);
 
-        // Constant declaring a 10% global discount rate
-        final double DISCOUNT_RATE = 0.10;
+        // Required datatypes: String, int, double, float
+        String customerName;
+        int loyaltyPoints;
+        double item1, item2, item3;
+        float finalAmount;
+        final double DISCOUNT_RATE = 0.10; // 10% discount
 
-        // Declarations for price tracking variables
-        double item1, item2, item3; // Prices of individual grocery items
-        double total;               // Sum total price of all items
-        double discountAmount;      // Total amount deducted by discount
-        double finalAmount;         // Final payable bill amount
+        // 1. String validation
+        System.out.print("Enter Customer Name: ");
+        customerName = input.nextLine().trim();
+        if (customerName.isEmpty()) {
+            System.out.println("Error: Customer name cannot be empty.");
+            input.close();
+            return;
+        }
 
-        // Interactive User Interface Inputs for 3 items
+        // 2. double validation for Item 1
         System.out.print("Enter price of item 1: ");
-        item1 = input.nextDouble();
+        if (input.hasNextDouble()) {
+            item1 = input.nextDouble();
+            if (item1 < 0.0) {
+                System.out.println("Error: Price cannot be negative.");
+                input.close();
+                return;
+            }
+        } else {
+            System.out.println("Error: Price must be a valid number.");
+            input.close();
+            return;
+        }
 
+        // double validation for Item 2
         System.out.print("Enter price of item 2: ");
-        item2 = input.nextDouble();
+        if (input.hasNextDouble()) {
+            item2 = input.nextDouble();
+            if (item2 < 0.0) {
+                System.out.println("Error: Price cannot be negative.");
+                input.close();
+                return;
+            }
+        } else {
+            System.out.println("Error: Price must be a valid number.");
+            input.close();
+            return;
+        }
 
+        // double validation for Item 3
         System.out.print("Enter price of item 3: ");
-        item3 = input.nextDouble();
+        if (input.hasNextDouble()) {
+            item3 = input.nextDouble();
+            if (item3 < 0.0) {
+                System.out.println("Error: Price cannot be negative.");
+                input.close();
+                return;
+            }
+        } else {
+            System.out.println("Error: Price must be a valid number.");
+            input.close();
+            return;
+        }
 
-        // Mathematical pipelines for bill calculation
-        // Calculate the raw sum total of item prices
-        total = item1 + item2 + item3;
-        // Calculate the discount amount based on the rate constant
-        discountAmount = total * DISCOUNT_RATE;
-        // Subtract discount from total to get the final bill amount
-        finalAmount = total - discountAmount;
+        // Math calculations
+        double total = item1 + item2 + item3;
+        double discountAmount = total * DISCOUNT_RATE;
+        
+        // 3. float assignment
+        finalAmount = (float) (total - discountAmount);
 
-        // Display results to the console
-        System.out.println("Total = " + total);
-        System.out.println("Discount = " + discountAmount);
+        // 4. int assignment (loyalty points: 1 point for every 10 spent)
+        loyaltyPoints = (int) (finalAmount / 10.0);
+
+        // Print receipt
+        System.out.println("\n--- Grocery Receipt ---");
+        System.out.println("Customer: " + customerName);
+        System.out.println("Total: " + total);
+        System.out.println("Discount (10%): " + discountAmount);
         System.out.println("Final Amount = " + finalAmount);
+        System.out.println("Loyalty Points Earned: " + loyaltyPoints);
 
-        // Close scanner to release system resources
         input.close();
     }
 }

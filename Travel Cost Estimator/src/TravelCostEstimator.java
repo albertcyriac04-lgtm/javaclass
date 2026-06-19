@@ -1,45 +1,98 @@
-/**
- * TravelCostEstimator calculates the total fuel needed and the estimated cost
- * of a trip based on user input for distance, mileage, and petrol price.
- */
 import java.util.Scanner;
 
 public class TravelCostEstimator {
 
     public static void main(String[] args) {
-        // Create Scanner object to read inputs from the standard input stream (console)
         Scanner input = new Scanner(System.in);
 
-        // Declare variables to store input parameters and calculated results
-        double distance;    // Distance of the travel in kilometers
-        double mileage;     // Vehicle mileage in kilometers per liter
-        double petrolPrice; // Price of petrol per liter
-        double fuelNeeded;  // Total fuel needed for the trip (liters)
-        double cost;        // Total estimated fuel cost
+        // Required datatypes: String, int, double, float
+        String destination;
+        int tripDays;
+        double distance;
+        double mileage;
+        double petrolPrice;
+        float totalCost;
 
-        // Prompt user and read distance
+        // 1. String validation
+        System.out.print("Enter trip destination: ");
+        destination = input.nextLine().trim();
+        if (destination.isEmpty()) {
+            System.out.println("Error: Destination cannot be empty.");
+            input.close();
+            return;
+        }
+
+        // 2. int validation
+        System.out.print("Enter trip duration in days: ");
+        if (input.hasNextInt()) {
+            tripDays = input.nextInt();
+            if (tripDays <= 0) {
+                System.out.println("Error: Trip duration must be at least 1 day.");
+                input.close();
+                return;
+            }
+        } else {
+            System.out.println("Error: Duration must be a valid integer.");
+            input.close();
+            return;
+        }
+
+        // 3. double validation (Distance)
         System.out.print("Enter distance in km: ");
-        distance = input.nextDouble();
+        if (input.hasNextDouble()) {
+            distance = input.nextDouble();
+            if (distance <= 0) {
+                System.out.println("Error: Distance must be greater than zero.");
+                input.close();
+                return;
+            }
+        } else {
+            System.out.println("Error: Distance must be a valid number.");
+            input.close();
+            return;
+        }
 
-        // Prompt user and read mileage
+        // 4. double validation (Mileage)
         System.out.print("Enter mileage (km/litre): ");
-        mileage = input.nextDouble();
+        if (input.hasNextDouble()) {
+            mileage = input.nextDouble();
+            if (mileage <= 0) {
+                System.out.println("Error: Mileage must be greater than zero.");
+                input.close();
+                return;
+            }
+        } else {
+            System.out.println("Error: Mileage must be a valid number.");
+            input.close();
+            return;
+        }
 
-        // Prompt user and read petrol price
+        // 5. double validation (Petrol price)
         System.out.print("Enter petrol price per litre: ");
-        petrolPrice = input.nextDouble();
+        if (input.hasNextDouble()) {
+            petrolPrice = input.nextDouble();
+            if (petrolPrice <= 0) {
+                System.out.println("Error: Petrol price must be greater than zero.");
+                input.close();
+                return;
+            }
+        } else {
+            System.out.println("Error: Petrol price must be a valid number.");
+            input.close();
+            return;
+        }
 
-        // Calculate the fuel needed and total cost of the trip
-        // Fuel needed = total distance divided by mileage
-        fuelNeeded = distance / mileage;
-        // Total cost = fuel needed multiplied by the price of petrol per liter
-        cost = fuelNeeded * petrolPrice;
+        // Perform calculation using float conversion
+        double fuelNeeded = distance / mileage;
+        totalCost = (float) (fuelNeeded * petrolPrice);
 
-        // Display results to the console
-        System.out.println("Fuel needed = " + fuelNeeded + " litres");
-        System.out.println("Cost = " + cost);
+        // Print final outputs
+        System.out.println("\n--- Travel Cost Estimation ---");
+        System.out.println("Destination: " + destination);
+        System.out.println("Trip Duration: " + tripDays + " days");
+        System.out.println("Fuel needed: " + (float) fuelNeeded + " litres");
+        System.out.println("Total estimated cost: " + totalCost);
 
-        // Close the scanner resource to avoid memory leaks
         input.close();
     }
 }

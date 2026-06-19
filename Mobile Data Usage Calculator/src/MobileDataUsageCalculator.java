@@ -1,34 +1,67 @@
-/**
- * MobileDataUsageCalculator computes the remaining mobile data balance
- * in gigabytes (GB) based on a default data ceiling and user usage input.
- */
 import java.util.Scanner;
 
 public class MobileDataUsageCalculator {
 
     public static void main(String[] args) {
-        // Instantiate Scanner for console input streams
         Scanner input = new Scanner(System.in);
 
-        // Define immutable systemic baseline ceiling (30 GB limit)
-        final double DATA_LIMIT = 30.0;
+        // Required datatypes: String, int, double, float
+        String planName;
+        int daysLeft;
+        double usedData;
+        float remainingData;
+        final double DATA_LIMIT = 30.0; // 30 GB limit
 
-        // Declarations for usage tracking
-        double usedData;      // Data consumed in GB (user input)
-        double remainingData; // Data left over in GB (calculated)
+        // 1. String validation
+        System.out.print("Enter your mobile plan name: ");
+        planName = input.nextLine().trim();
+        if (planName.isEmpty()) {
+            System.out.println("Error: Plan name cannot be empty.");
+            input.close();
+            return;
+        }
 
-        // Read used data input
+        // 2. int validation
+        System.out.print("Enter days left in the billing cycle: ");
+        if (input.hasNextInt()) {
+            daysLeft = input.nextInt();
+            if (daysLeft < 0) {
+                System.out.println("Error: Days left cannot be negative.");
+                input.close();
+                return;
+            }
+        } else {
+            System.out.println("Error: Days left must be a valid integer.");
+            input.close();
+            return;
+        }
+
+        // 3. double validation
         System.out.print("Enter data used in GB: ");
-        usedData = input.nextDouble();
+        if (input.hasNextDouble()) {
+            usedData = input.nextDouble();
+            if (usedData < 0.0 || usedData > DATA_LIMIT) {
+                System.out.println("Error: Used data must be between 0.0 and the plan limit of " + DATA_LIMIT + " GB.");
+                input.close();
+                return;
+            }
+        } else {
+            System.out.println("Error: Used data must be a valid number.");
+            input.close();
+            return;
+        }
 
-        // Algorithmic tracking logic: Subtract consumption from systemic limit
-        remainingData = DATA_LIMIT - usedData;
+        // 4. float computation
+        remainingData = (float) (DATA_LIMIT - usedData);
 
-        // Print details to the console
-        System.out.println("Used: " + usedData + " GB");
-        System.out.println("Remaining: " + remainingData + " GB");
+        // Display results
+        System.out.println("\n--- Mobile Data Usage Summary ---");
+        System.out.println("Plan Name: " + planName);
+        System.out.println("Days Left: " + daysLeft + " days");
+        System.out.println("Total Plan Limit: " + DATA_LIMIT + " GB");
+        System.out.println("Data Used: " + usedData + " GB");
+        System.out.println("Data Remaining: " + remainingData + " GB");
 
-        // Close the scanner resource to optimize system memory
         input.close();
     }
 }
